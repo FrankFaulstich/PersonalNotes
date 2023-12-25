@@ -1,0 +1,11 @@
+{
+    "NotesFolder": "./Notes/",
+    "NotesFilename": "notes.json",
+    "CommentFolder": "./Comments",
+    "ChecklistFolder": "./Checklists",
+    "PictureFolder": "./Pictures",
+    "LastNoteID": 1,
+    "LastNote" : 2,
+    "LastComment": 1,
+    "LastChecklist": 1
+}
