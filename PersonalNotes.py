@@ -18,7 +18,7 @@ class MyWindow(QMainWindow):
         self.openNotes()
 
     def readConfig(self):
-         # TODO: Was passiert, wenn die Config nicht gefunden wird?
+         # TODO: #1 Was passiert, wenn die Config nicht gefunden wird?
          with open('./config.json', 'r') as f:
             self.config = json.load(f)
             #print(self.config)
@@ -26,7 +26,7 @@ class MyWindow(QMainWindow):
     def openNotes(self):
          file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
          #print(file_name)
-         # TODO: Was passiert, wenn die Datei nicht gefunden wird?
+         # TODO: #2 Was passiert, wenn die Datei nicht gefunden wird?
          with open(file_name, 'r') as f:
             self.notes = json.load(f)
             #print(self.notes)
