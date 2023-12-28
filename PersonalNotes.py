@@ -13,7 +13,7 @@ class MyWindow(QMainWindow):
 
     def __init__(self):
         super(MyWindow, self).__init__()
-        self.ui = uic.loadUi("./MyApp.ui", self)
+        self.ui = uic.loadUi("./PersonalNotes.ui", self)
         self.readConfig()
         self.openNotes()
 
