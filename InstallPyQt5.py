@@ -1,5 +1,6 @@
 import sys
 
+# TODO: #4 Umstellung der Installation auf PyQt6
 def installPyQt5():
     try:
         from PyQt5 import QtWidgets

@@ -4,6 +4,7 @@ import sys
 from InstallPyQt5 import installPyQt5
 installPyQt5()
 
+# TODO: #3 Umstellung auf PyQt6
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
