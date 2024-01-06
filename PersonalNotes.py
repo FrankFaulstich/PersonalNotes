@@ -16,21 +16,26 @@ class MyWindow(QMainWindow):
         self.ui = uic.loadUi("./PersonalNotes.ui", self)
         self.readConfig()
         self.openNotes()
+        self.refreshList()
 
     def readConfig(self):
          # TODO: #1 Was passiert, wenn die Config nicht gefunden wird?
          with open('./config.json', 'r') as f:
             self.config = json.load(f)
-            #print(self.config)
 
     def openNotes(self):
          file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
-         #print(file_name)
          # TODO: #2 Was passiert, wenn die Datei nicht gefunden wird?
          with open(file_name, 'r') as f:
             self.notes = json.load(f)
-            #print(self.notes)
-    
+
+    def refreshList(self):
+        itemList = []
+        for i in range(len(self.notes['item'])):
+            itemList.append( self.notes['item'][i]['name'])
+
+        self.ui.listWidget.addItems(itemList)
+        
 
 def window():
     app = QApplication(sys.argv)

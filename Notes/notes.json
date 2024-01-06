@@ -1,4 +1,8 @@
 {
+    "LastNoteID": 1,
+    "LastNote" : 4,
+    "LastComment": 1,
+    "LastChecklist": 1,
     "item": [
         {
             "ID": 1,
@@ -13,6 +17,18 @@
             "note": "2.md",
             "comment": "1.md",
             "checklist": "1.json"
+        },
+        {
+            "ID": 3,
+            "name": "My 3rd note",
+            "date": "2023-12-25",
+            "note": "3.md"
+        },
+        {
+            "ID": 4,
+            "name": "My 4th note",
+            "date": "2024-01-06",
+            "note": "4.md"
         }
     ]
 }
