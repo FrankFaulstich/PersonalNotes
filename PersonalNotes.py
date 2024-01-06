@@ -1,12 +1,11 @@
 import json
 import sys
 
-from InstallPyQt5 import installPyQt5
-installPyQt5()
+from InstallPyQt6 import installPyQt6
+installPyQt6()
 
-# TODO: #3 Umstellung auf PyQt6
-from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt6 import uic
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
 class MyWindow(QMainWindow):
     config = {}
@@ -40,7 +39,7 @@ def window():
         app.setStyleSheet(style)
     win = MyWindow()
     win.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
 	window()
