@@ -9,7 +9,10 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 
 class MyWindow(QMainWindow):
     config = {}
+    # Dictionary with all notes
     notes = {}
+    # Current note
+    currentNote = {}
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -17,6 +20,13 @@ class MyWindow(QMainWindow):
         self.readConfig()
         self.openNotes()
         self.refreshList()
+
+        # 1st item in the list is the current item
+        self.setCurrentNote(0)
+        # TODO: #11 The 1st item should be selected in the list.
+
+        # Slots
+        self.ui.listWidget.itemClicked.connect(self.onItemClicked)
 
     def readConfig(self):
          # TODO: #1 Was passiert, wenn die Config nicht gefunden wird?
@@ -35,6 +45,14 @@ class MyWindow(QMainWindow):
             itemList.append( self.notes['item'][i]['name'])
 
         self.ui.listWidget.addItems(itemList)
+
+    def setCurrentNote(itemNumber):
+        # TODO: #10 Implement the method setCurrentNote.
+        pass
+
+    def onItemClicked(self, item):
+        # Number of selected line
+        self.setCurrentNote(self.ui.listWidget.currentRow())
         
 
 def window():
