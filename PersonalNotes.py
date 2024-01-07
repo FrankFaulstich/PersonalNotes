@@ -22,7 +22,6 @@ class MyWindow(QMainWindow):
         self.refreshList()
 
         # 1st item in the list is the current item
-        # BUG: #13 Numbers of arguments are wrong:
         self.setCurrentNote(0)
         # TODO: #11 The 1st item should be selected in the list.
 
@@ -48,8 +47,7 @@ class MyWindow(QMainWindow):
         self.ui.listWidget.addItems(itemList)
 
     def setCurrentNote(self, itemNumber):
-        # TODO: #10 Implement the method setCurrentNote.
-        pass
+        self.currentNote = self.notes['item'][itemNumber]
 
     def onItemClicked(self, item):
         # Number of selected line
