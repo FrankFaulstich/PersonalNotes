@@ -9,10 +9,15 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 
 class MyWindow(QMainWindow):
     config = {}
+
     # Dictionary with all notes
     notes = {}
+
     # Current note
     currentNote = {}
+
+    # Content of current MD file
+    content =''
 
     def __init__(self):
         super(MyWindow, self).__init__()
@@ -48,6 +53,15 @@ class MyWindow(QMainWindow):
 
     def setCurrentNote(self, itemNumber):
         self.currentNote = self.notes['item'][itemNumber]
+        self.displayContent(self.currentNote['note'])
+
+    def displayContent(self, file):
+        fullFileName = self.config['NotesFolder'] + file
+        with open(fullFileName, 'r') as f:
+            self.content = f.read()
+
+        # TODO: #17 Convert Markdown into HTML
+        self.ui.textBrowser.setText(self.content)
 
     def onItemClicked(self, item):
         # Number of selected line
