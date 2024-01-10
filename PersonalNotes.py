@@ -1,5 +1,6 @@
 import json
 import sys
+import markdown
 
 from InstallPyQt6 import installPyQt6
 installPyQt6()
@@ -60,8 +61,8 @@ class MyWindow(QMainWindow):
         with open(fullFileName, 'r') as f:
             self.content = f.read()
 
-        # TODO: #17 Convert Markdown into HTML
-        self.ui.textBrowser.setText(self.content)
+        contentHTML = markdown.markdown(self.content)
+        self.ui.textBrowser.setText(contentHTML)
 
     def onItemClicked(self, item):
         # Number of selected line
