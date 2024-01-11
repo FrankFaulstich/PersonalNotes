@@ -7,8 +7,11 @@ installPyQt6()
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QPainter, QColor
+from PyQt6.QtCore import Qt, QUrl
 
 class MyWindow(QMainWindow):
+    # Global configuration
     config = {}
 
     # Dictionary with all notes
@@ -33,6 +36,8 @@ class MyWindow(QMainWindow):
 
         # Slots
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
+        QApplication.instance().focusChanged.connect(self.onFocusChanged)
+    
 
     def readConfig(self):
          # TODO: #1 Was passiert, wenn die Config nicht gefunden wird?
@@ -61,13 +66,39 @@ class MyWindow(QMainWindow):
         with open(fullFileName, 'r') as f:
             self.content = f.read()
 
+        # Convert Markdown into HTML
         contentHTML = markdown.markdown(self.content)
-        self.ui.textBrowser.setText(contentHTML)
+
+        self.ui.textEdit.setHtml(contentHTML)
+        self.ui.textEdit.setReadOnly(True)
 
     def onItemClicked(self, item):
         # Number of selected line
         self.setCurrentNote(self.ui.listWidget.currentRow())
-        
+
+    def onFocusChanged(self, oldWidget, nowWidget):
+        if self.ui.textEdit is nowWidget:
+            # QTextEdit is in focus
+            # TODO: #32 Change the background color
+
+            # Make QTextEdit editable
+            self.ui.textEdit.setReadOnly(False)
+            self.ui.textEdit.setPlainText(self.content)
+
+        if self.ui.textEdit is oldWidget:
+            # QTextEdit is no longer in focus
+            # TODO: #32 Change the background color
+            
+            self.content = self.ui.textEdit.toPlainText()
+            
+            # Save the file
+            fullFileName = self.config['NotesFolder'] + self.currentNote['note']
+            with open(fullFileName, 'w') as f:
+                f.write(self.content)
+
+            # Display the content as HTML
+            self.displayContent(self.currentNote['note'])
+                    
 
 def window():
     app = QApplication(sys.argv)

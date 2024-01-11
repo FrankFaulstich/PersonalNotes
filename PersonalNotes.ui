@@ -71,7 +71,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
       <x>310</x>
