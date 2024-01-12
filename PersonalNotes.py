@@ -2,13 +2,13 @@ import json
 import sys
 import markdown
 
+from datetime import date
+
 from InstallPyQt6 import installPyQt6
 installPyQt6()
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QPainter, QColor
-from PyQt6.QtCore import Qt, QUrl
 
 class MyWindow(QMainWindow):
     # Global configuration
@@ -36,6 +36,7 @@ class MyWindow(QMainWindow):
 
         # Slots
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
+        self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -50,11 +51,17 @@ class MyWindow(QMainWindow):
          with open(file_name, 'r') as f:
             self.notes = json.load(f)
 
+    def saveNotes(self):
+        file_name = self.config['NotesFolder'] + self.config['NotesFilename']
+        with open(file_name, 'w') as f:
+            json.dump(self.notes, f)
+
     def refreshList(self):
         itemList = []
         for i in range(len(self.notes['item'])):
-            itemList.append( self.notes['item'][i]['name'])
+            itemList.append(self.notes['item'][i]['name'])
 
+        self.ui.listWidget.clear()
         self.ui.listWidget.addItems(itemList)
 
     def setCurrentNote(self, itemNumber):
@@ -75,6 +82,24 @@ class MyWindow(QMainWindow):
     def onItemClicked(self, item):
         # Number of selected line
         self.setCurrentNote(self.ui.listWidget.currentRow())
+
+    def onButtonAdd(self):
+        # Write the MD file
+        self.notes['LastNote'] = self.notes['LastNote'] +1
+        file = self.notes['LastNote']
+        fullFileName = self.config['NotesFolder'] + str(file) + '.md'
+        with open(fullFileName, 'w') as f:
+            f.write('')
+        # Add a new item into dictionary
+        today = date.today()
+        newItem ={
+            "name": "New note",
+            "date": str(today),
+            "note": str(file) + '.md'
+        }
+        self.notes['item'].insert(0, newItem)
+        self.saveNotes()
+        self.refreshList()
 
     def onFocusChanged(self, oldWidget, nowWidget):
         if self.ui.textEdit is nowWidget:
@@ -98,6 +123,7 @@ class MyWindow(QMainWindow):
 
             # Display the content as HTML
             self.displayContent(self.currentNote['note'])
+            # TODO: #35 The date for the item should be changed and the JSON file should be saved.
                     
 
 def window():
