@@ -35,10 +35,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_2 = QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_Add = QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_Add.setObjectName(u"pushButton_Add")
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.pushButton_5 = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_5.setObjectName(u"pushButton_5")
@@ -88,7 +88,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Personal Notes", None))
         self.action_Open_Folder.setText(QCoreApplication.translate("MainWindow", u"&Open Folder...", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"+", None))
+        self.pushButton_Add.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Del", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Up", None))
