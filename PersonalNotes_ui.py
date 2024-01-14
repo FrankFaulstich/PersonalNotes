@@ -40,15 +40,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
-        self.pushButton_5 = QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.pushButton_Del = QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_Del.setObjectName(u"pushButton_Del")
 
-        self.horizontalLayout.addWidget(self.pushButton_5)
-
-        self.pushButton = QPushButton(self.horizontalLayoutWidget)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.pushButton_Del)
 
         self.pushButton_3 = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
@@ -89,8 +84,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Personal Notes", None))
         self.action_Open_Folder.setText(QCoreApplication.translate("MainWindow", u"&Open Folder...", None))
         self.pushButton_Add.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Del", None))
+        self.pushButton_Del.setText(QCoreApplication.translate("MainWindow", u"Del", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Up", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Down", None))
         self.menu_File.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
