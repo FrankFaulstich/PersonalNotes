@@ -1,6 +1,7 @@
 import json
 import sys
 import markdown
+import os
 
 from datetime import date
 
@@ -37,6 +38,7 @@ class MyWindow(QMainWindow):
         # Slots
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
+        self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -45,11 +47,13 @@ class MyWindow(QMainWindow):
          with open('./config.json', 'r') as f:
             self.config = json.load(f)
 
+
     def openNotes(self):
          file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
          # TODO: #2 Was passiert, wenn die Datei nicht gefunden wird?
          with open(file_name, 'r') as f:
             self.notes = json.load(f)
+
 
     def saveNotes(self):
         file_name = self.config['NotesFolder'] + self.config['NotesFilename']
@@ -64,9 +68,11 @@ class MyWindow(QMainWindow):
         self.ui.listWidget.clear()
         self.ui.listWidget.addItems(itemList)
 
+
     def setCurrentNote(self, itemNumber):
         self.currentNote = self.notes['item'][itemNumber]
         self.displayContent(self.currentNote['note'])
+
 
     def displayContent(self, file):
         fullFileName = self.config['NotesFolder'] + file
@@ -79,9 +85,11 @@ class MyWindow(QMainWindow):
         self.ui.textEdit.setHtml(contentHTML)
         self.ui.textEdit.setReadOnly(True)
 
+
     def onItemClicked(self, item):
         # Number of selected line
         self.setCurrentNote(self.ui.listWidget.currentRow())
+
 
     def onButtonAdd(self):
         # Write the MD file
@@ -100,6 +108,27 @@ class MyWindow(QMainWindow):
         self.notes['item'].insert(0, newItem)
         self.saveNotes()
         self.refreshList()
+
+
+    def onButtonDel(self):
+        # Which item is in focus?
+        row = self.listWidget.currentRow()
+        
+        # Delete Markdown file
+        fullFileName = self.config['NotesFolder'] + self.currentNote['note']
+
+        if os.path.exists(fullFileName):
+            os.remove(fullFileName)
+        else:
+            # TODO: #41 Replace it with a message box
+            print("The file does not exist")
+        
+        # Delete the item in list
+        self.notes['item'].remove(self.notes['item'][row])
+
+        self.saveNotes()
+        self.refreshList()
+
 
     def onFocusChanged(self, oldWidget, nowWidget):
         if self.ui.textEdit is nowWidget:
