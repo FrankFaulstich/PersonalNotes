@@ -47,11 +47,15 @@ class Ui_MainWindow(object):
 
         self.pushButton_3 = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setEnabled(True)
+        self.pushButton_3.setCheckable(False)
+        self.pushButton_3.setFlat(False)
 
         self.horizontalLayout.addWidget(self.pushButton_3)
 
         self.pushButton_4 = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_4.setObjectName(u"pushButton_4")
+        self.pushButton_4.setEnabled(True)
 
         self.horizontalLayout.addWidget(self.pushButton_4)
 
@@ -76,6 +80,9 @@ class Ui_MainWindow(object):
         self.menu_File.addAction(self.action_Open_Folder)
 
         self.retranslateUi(MainWindow)
+
+        self.pushButton_3.setDefault(False)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
