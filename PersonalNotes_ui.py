@@ -45,19 +45,19 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.pushButton_Del)
 
-        self.pushButton_3 = QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setEnabled(True)
-        self.pushButton_3.setCheckable(False)
-        self.pushButton_3.setFlat(False)
+        self.pushButton_Up = QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_Up.setObjectName(u"pushButton_Up")
+        self.pushButton_Up.setEnabled(True)
+        self.pushButton_Up.setCheckable(False)
+        self.pushButton_Up.setFlat(False)
 
-        self.horizontalLayout.addWidget(self.pushButton_3)
+        self.horizontalLayout.addWidget(self.pushButton_Up)
 
-        self.pushButton_4 = QPushButton(self.horizontalLayoutWidget)
-        self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setEnabled(True)
+        self.pushButton_Down = QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_Down.setObjectName(u"pushButton_Down")
+        self.pushButton_Down.setEnabled(True)
 
-        self.horizontalLayout.addWidget(self.pushButton_4)
+        self.horizontalLayout.addWidget(self.pushButton_Down)
 
         self.listWidget = QListWidget(self.centralwidget)
         self.listWidget.setObjectName(u"listWidget")
@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.pushButton_3.setDefault(False)
+        self.pushButton_Up.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -92,8 +92,8 @@ class Ui_MainWindow(object):
         self.action_Open_Folder.setText(QCoreApplication.translate("MainWindow", u"&Open Folder...", None))
         self.pushButton_Add.setText(QCoreApplication.translate("MainWindow", u"+", None))
         self.pushButton_Del.setText(QCoreApplication.translate("MainWindow", u"Del", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Up", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Down", None))
+        self.pushButton_Up.setText(QCoreApplication.translate("MainWindow", u"Up", None))
+        self.pushButton_Down.setText(QCoreApplication.translate("MainWindow", u"Down", None))
         self.menu_File.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
     # retranslateUi
 
