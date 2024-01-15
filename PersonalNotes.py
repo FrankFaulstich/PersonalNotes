@@ -35,6 +35,10 @@ class MyWindow(QMainWindow):
         self.setCurrentNote(0)
         # TODO: #11 The 1st item should be selected in the list.
 
+        # Disable not used buttons
+        self.pushButton_Up.setEnabled(False)
+        self.pushButton_Down.setEnabled(False)
+
         # Slots
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
