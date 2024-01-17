@@ -21,6 +21,8 @@ class MyWindow(QMainWindow):
     # Current note
     currentNote = {}
 
+    currentNoteNumber = 0
+
     # Content of current MD file
     content =''
 
@@ -64,6 +66,7 @@ class MyWindow(QMainWindow):
         with open(file_name, 'w') as f:
             json.dump(self.notes, f)
 
+
     def refreshList(self):
         itemList = []
         for i in range(len(self.notes['item'])):
@@ -92,7 +95,9 @@ class MyWindow(QMainWindow):
 
     def onItemClicked(self, item):
         # Number of selected line
-        self.setCurrentNote(self.ui.listWidget.currentRow())
+        self.currentNoteNumber = self.ui.listWidget.currentRow()
+        #print(self.currentNoteNumber)
+        self.setCurrentNote(self.currentNoteNumber)
 
 
     def onButtonAdd(self):
@@ -156,7 +161,20 @@ class MyWindow(QMainWindow):
 
             # Display the content as HTML
             self.displayContent(self.currentNote['note'])
-            # TODO: #35 The date for the item should be changed and the JSON file should be saved.
+            
+            # Change the date and move it on the 1st place
+            today = date.today()
+            newItem = {}
+            # Here I have to change the name for the solution to issue #43.
+            newItem['name'] = self.currentNote['name']
+            ###
+            newItem['date'] = str(today)
+            newItem['note'] = self.currentNote['note']
+            
+            self.notes['item'].remove(self.currentNote)
+            self.notes['item'].insert(0, newItem)
+            self.saveNotes()
+            self.refreshList()
                     
 
 def window():
