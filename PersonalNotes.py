@@ -70,7 +70,12 @@ class MyWindow(QMainWindow):
     def refreshList(self):
         itemList = []
         for i in range(len(self.notes['item'])):
-            itemList.append(self.notes['item'][i]['name'])
+            s = self.notes['item'][i]['name']
+            if s[0] == '#':
+                s = s.lstrip('#')
+                s = s.lstrip()
+            s = s + self.notes['item'][i]['date'] + '\n'
+            itemList.append(s)
 
         self.ui.listWidget.clear()
         self.ui.listWidget.addItems(itemList)
@@ -110,7 +115,7 @@ class MyWindow(QMainWindow):
         # Add a new item into dictionary
         today = date.today()
         newItem ={
-            "name": "New note",
+            "name": "New Note\n",
             "date": str(today),
             "note": str(file) + '.md'
         }
@@ -165,9 +170,9 @@ class MyWindow(QMainWindow):
             # Change the date and move it on the 1st place
             today = date.today()
             newItem = {}
-            # Here I have to change the name for the solution to issue #43.
-            newItem['name'] = self.currentNote['name']
-            ###
+            l = self.content.splitlines(True)
+            name = l[0]
+            newItem['name'] = name
             newItem['date'] = str(today)
             newItem['note'] = self.currentNote['note']
             
