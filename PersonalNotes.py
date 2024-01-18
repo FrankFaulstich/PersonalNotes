@@ -10,6 +10,7 @@ installPyQt6()
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QIcon
 
 class MyWindow(QMainWindow):
     # Global configuration
@@ -37,9 +38,15 @@ class MyWindow(QMainWindow):
         self.setCurrentNote(0)
         # TODO: #11 The 1st item should be selected in the list.
 
+        self.ui.pushButton_Add.setIcon(QIcon('./icons/add.svg'))
+        self.ui.pushButton_Del.setIcon(QIcon('./icons/del.svg'))
+        self.ui.pushButton_Up.setIcon(QIcon('./icons/arrow_upward.svg'))
+        self.ui.pushButton_Down.setIcon(QIcon('./icons/arrow_downward.svg'))
+
+
         # Disable not used buttons
-        self.pushButton_Up.setEnabled(False)
-        self.pushButton_Down.setEnabled(False)
+        self.ui.pushButton_Up.setEnabled(False)
+        self.ui.pushButton_Down.setEnabled(False)
 
         # Slots
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)

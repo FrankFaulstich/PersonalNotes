@@ -37,17 +37,21 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.pushButton_Add = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_Add.setObjectName(u"pushButton_Add")
+        self.pushButton_Add.setIconSize(QSize(24, 24))
+        self.pushButton_Add.setFlat(False)
 
         self.horizontalLayout.addWidget(self.pushButton_Add)
 
         self.pushButton_Del = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_Del.setObjectName(u"pushButton_Del")
+        self.pushButton_Del.setIconSize(QSize(24, 24))
 
         self.horizontalLayout.addWidget(self.pushButton_Del)
 
         self.pushButton_Up = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_Up.setObjectName(u"pushButton_Up")
         self.pushButton_Up.setEnabled(True)
+        self.pushButton_Up.setIconSize(QSize(24, 24))
         self.pushButton_Up.setCheckable(False)
         self.pushButton_Up.setFlat(False)
 
@@ -56,15 +60,20 @@ class Ui_MainWindow(object):
         self.pushButton_Down = QPushButton(self.horizontalLayoutWidget)
         self.pushButton_Down.setObjectName(u"pushButton_Down")
         self.pushButton_Down.setEnabled(True)
+        self.pushButton_Down.setIconSize(QSize(24, 24))
 
         self.horizontalLayout.addWidget(self.pushButton_Down)
 
         self.listWidget = QListWidget(self.centralwidget)
         self.listWidget.setObjectName(u"listWidget")
         self.listWidget.setGeometry(QRect(10, 60, 291, 471))
+        font = QFont()
+        font.setBold(True)
+        self.listWidget.setFont(font)
         self.textEdit = QTextEdit(self.centralwidget)
         self.textEdit.setObjectName(u"textEdit")
-        self.textEdit.setGeometry(QRect(310, 10, 481, 521))
+        self.textEdit.setGeometry(QRect(310, 60, 481, 471))
+        self.textEdit.setTextInteractionFlags(Qt.LinksAccessibleByKeyboard|Qt.LinksAccessibleByMouse|Qt.TextBrowserInteraction|Qt.TextEditable|Qt.TextEditorInteraction|Qt.TextSelectableByKeyboard|Qt.TextSelectableByMouse)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -90,10 +99,19 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Personal Notes", None))
         self.action_Open_Folder.setText(QCoreApplication.translate("MainWindow", u"&Open Folder...", None))
-        self.pushButton_Add.setText(QCoreApplication.translate("MainWindow", u"+", None))
-        self.pushButton_Del.setText(QCoreApplication.translate("MainWindow", u"Del", None))
-        self.pushButton_Up.setText(QCoreApplication.translate("MainWindow", u"Up", None))
-        self.pushButton_Down.setText(QCoreApplication.translate("MainWindow", u"Down", None))
+#if QT_CONFIG(tooltip)
+        self.pushButton_Add.setToolTip(QCoreApplication.translate("MainWindow", u"Add new note", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_Add.setText("")
+#if QT_CONFIG(tooltip)
+        self.pushButton_Del.setToolTip(QCoreApplication.translate("MainWindow", u"Delete note", None))
+#endif // QT_CONFIG(tooltip)
+        self.pushButton_Del.setText("")
+        self.pushButton_Up.setText("")
+        self.pushButton_Down.setText("")
+#if QT_CONFIG(tooltip)
+        self.textEdit.setToolTip(QCoreApplication.translate("MainWindow", u"Click to edit", None))
+#endif // QT_CONFIG(tooltip)
         self.menu_File.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))
     # retranslateUi
 
