@@ -178,13 +178,18 @@ class MyWindow(QMainWindow):
             today = date.today()
             newItem = {}
             l = self.content.splitlines(True)
-            name = l[0]
+            if len(l) > 0:
+                name = l[0]
+            else:
+                name = 'New Item\n'
+            
             newItem['name'] = name
             newItem['date'] = str(today)
             newItem['note'] = self.currentNote['note']
             
             self.notes['item'].remove(self.currentNote)
             self.notes['item'].insert(0, newItem)
+            
             self.saveNotes()
             self.refreshList()
                     
