@@ -108,11 +108,11 @@ class MyWindow(QMainWindow):
     def onItemClicked(self, item):
         # Number of selected line
         self.currentNoteNumber = self.ui.listWidget.currentRow()
-        #print(self.currentNoteNumber)
         self.setCurrentNote(self.currentNoteNumber)
 
 
     def onButtonAdd(self):
+        self.ui.listWidget.setFocus()
         # Write the MD file
         self.notes['LastNote'] = self.notes['LastNote'] +1
         file = self.notes['LastNote']
@@ -132,6 +132,7 @@ class MyWindow(QMainWindow):
 
 
     def onButtonDel(self):
+        self.ui.listWidget.setFocus()
         # Which item is in focus?
         row = self.listWidget.currentRow()
         
@@ -142,16 +143,19 @@ class MyWindow(QMainWindow):
             os.remove(fullFileName)
         else:
             # TODO: #41 Replace it with a message box
-            print("The file does not exist")
+            print("The file does not exist.")
         
         # Delete the item in list
         self.notes['item'].remove(self.notes['item'][row])
 
         self.saveNotes()
         self.refreshList()
+        self.setCurrentNote(0)
+        self.ui.textEdit.setReadOnly(True)
 
 
     def onFocusChanged(self, oldWidget, nowWidget):
+        print('onFocusChanged')
         if self.ui.textEdit is nowWidget:
             # QTextEdit is in focus
             # TODO: #32 Change the background color
@@ -187,7 +191,7 @@ class MyWindow(QMainWindow):
             newItem['date'] = str(today)
             newItem['note'] = self.currentNote['note']
             
-            self.notes['item'].remove(self.currentNote)
+            del(self.notes['item'][self.currentNoteNumber])
             self.notes['item'].insert(0, newItem)
             
             self.saveNotes()
