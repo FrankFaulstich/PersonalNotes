@@ -56,19 +56,19 @@ class MyWindow(QMainWindow):
     
 
     def readConfig(self):
-         try:
-             with open('./config.json', 'r') as f:
+        try:
+            with open('./config.json', 'r') as f:
                 self.config = json.load(f)
-         except:
-             self.config = {
+        except:
+            self.config = {
                                 "NotesFolder": "./Notes/",
                                 "NotesFilename": "notes.json",
                                 "CommentFolder": "./Comments/",
                                 "ChecklistFolder": "./Checklists/",
                                 "PictureFolder": "./Pictures/"
-                            }
+            }
              
-             self.saveConfig()
+            self.saveConfig()
 
 
     def saveConfig(self):
@@ -77,10 +77,22 @@ class MyWindow(QMainWindow):
 
 
     def openNotes(self):
-         file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
-         # TODO: #2 Was passiert, wenn die Datei nicht gefunden wird?
-         with open(file_name, 'r') as f:
-            self.notes = json.load(f)
+        file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
+        try:
+            with open(file_name, 'r') as f:
+                self.notes = json.load(f)
+        except:
+            # TODO: #64  Replace it with a message box
+            print('Notes file not found. A new file is created.')
+            self.notes = {
+                            "LastNoteID": 1,
+                            "LastNote": 1,
+                            "LastComment": 1,
+                            "LastChecklist": 1,
+                            "item": []
+            }
+
+            self.saveNotes()
 
 
     def saveNotes(self):
@@ -110,6 +122,7 @@ class MyWindow(QMainWindow):
 
     def displayContent(self, file):
         fullFileName = self.config['NotesFolder'] + file
+        # TODO #65 Error handling if the Markdown file not found
         with open(fullFileName, 'r') as f:
             self.content = f.read()
 
