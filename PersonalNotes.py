@@ -56,9 +56,24 @@ class MyWindow(QMainWindow):
     
 
     def readConfig(self):
-         # TODO: #1 Was passiert, wenn die Config nicht gefunden wird?
-         with open('./config.json', 'r') as f:
-            self.config = json.load(f)
+         try:
+             with open('./config.json', 'r') as f:
+                self.config = json.load(f)
+         except:
+             self.config = {
+                                "NotesFolder": "./Notes/",
+                                "NotesFilename": "notes.json",
+                                "CommentFolder": "./Comments/",
+                                "ChecklistFolder": "./Checklists/",
+                                "PictureFolder": "./Pictures/"
+                            }
+             
+             self.saveConfig()
+
+
+    def saveConfig(self):
+        with open('./config.json', 'w') as f:
+            json.dump(self.config, f)
 
 
     def openNotes(self):
@@ -155,7 +170,6 @@ class MyWindow(QMainWindow):
 
 
     def onFocusChanged(self, oldWidget, nowWidget):
-        print('onFocusChanged')
         if self.ui.textEdit is nowWidget:
             # QTextEdit is in focus
             # TODO: #32 Change the background color
