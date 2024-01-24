@@ -108,6 +108,10 @@ class MyWindow(QMainWindow):
             if s[0] == '#':
                 s = s.lstrip('#')
                 s = s.lstrip()
+
+            if len(s) > 40:
+                s = s[:40] + ' ...\n'
+
             s = s + self.notes['item'][i]['date'] + '\n'
             itemList.append(s)
 
