@@ -9,7 +9,7 @@ from InstallPyQt6 import installPyQt6
 installPyQt6()
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QIcon
 
 class MyWindow(QMainWindow):
@@ -33,11 +33,9 @@ class MyWindow(QMainWindow):
         self.readConfig()
         self.openNotes()
         self.refreshList()
-
-        # 1st item in the list is the current item
         self.setCurrentNote(0)
-        # TODO: #11 The 1st item should be selected in the list.
 
+        # Add icons to buttons
         self.ui.pushButton_Add.setIcon(QIcon('./icons/add.svg'))
         self.ui.pushButton_Del.setIcon(QIcon('./icons/del.svg'))
         self.ui.pushButton_Up.setIcon(QIcon('./icons/arrow_upward.svg'))
@@ -117,6 +115,7 @@ class MyWindow(QMainWindow):
 
         self.ui.listWidget.clear()
         self.ui.listWidget.addItems(itemList)
+        self.ui.listWidget.setCurrentRow(0)
 
 
     def setCurrentNote(self, itemNumber):
