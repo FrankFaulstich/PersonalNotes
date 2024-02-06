@@ -1,1 +1,7 @@
-{"NotesFolder": "/Users/frankfaulstich/git/Arbeit/PersonalNotes/Notes/", "NotesFilename": "notes.json", "CommentFolder": "./Notes/Comments/", "ChecklistFolder": "./Notes/Checklists/", "PictureFolder": "./Notes/Pictures/"}
+{
+  "NotesFolder": "./Notes/",
+  "NotesFilename": "notes.json",
+  "CommentFolder": "./Notes/Comments/",
+  "ChecklistFolder": "./Notes/Checklists/",
+  "PictureFolder": "./Notes/Pictures/"
+}
