@@ -9,7 +9,7 @@ from InstallPyQt6 import installPyQt6
 installPyQt6()
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow, QListWidgetItem
+from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
 
 class MyWindow(QMainWindow):
@@ -38,15 +38,9 @@ class MyWindow(QMainWindow):
         # Add icons to buttons
         self.ui.pushButton_Add.setIcon(QIcon('./icons/add.svg'))
         self.ui.pushButton_Del.setIcon(QIcon('./icons/del.svg'))
-        self.ui.pushButton_Up.setIcon(QIcon('./icons/arrow_upward.svg'))
-        self.ui.pushButton_Down.setIcon(QIcon('./icons/arrow_downward.svg'))
-
-
-        # Disable not used buttons
-        self.ui.pushButton_Up.setEnabled(False)
-        self.ui.pushButton_Down.setEnabled(False)
 
         # Slots
+        self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
@@ -134,6 +128,16 @@ class MyWindow(QMainWindow):
 
         self.ui.textEdit.setHtml(contentHTML)
         self.ui.textEdit.setReadOnly(True)
+
+    def onOpenFolder(self):
+        # Menu item "Open Folder"
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        self.config['NotesFolder'] = directory + '/'
+        
+        self.saveConfig()
+        self.openNotes()
+        self.refreshList()
+        self.setCurrentNote(0)
 
 
     def onItemClicked(self, item):
