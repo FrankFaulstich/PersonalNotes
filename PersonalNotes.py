@@ -3,6 +3,7 @@ import sys
 import markdown
 import os
 import pyperclip
+import subprocess
 
 from datetime import date
 
@@ -40,6 +41,7 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_Add.setIcon(QIcon('./icons/add.svg'))
         self.ui.pushButton_Del.setIcon(QIcon('./icons/del.svg'))
         self.ui.pushButton_Copy.setIcon(QIcon('./icons/copy.svg'))
+        self.ui.pushButton_Mail.setIcon(QIcon('./icons/mail.svg'))
 
         # Slots
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
@@ -47,6 +49,7 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
         self.ui.pushButton_Copy.clicked.connect(self.onButtonCopy)
+        self.ui.pushButton_Mail.clicked.connect(self.onButtonMail)
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -195,6 +198,28 @@ class MyWindow(QMainWindow):
 
     def onButtonCopy(self):
         pyperclip.copy(self.content)
+
+
+    def onButtonMail(self):
+        address = 'email@example.com'
+        l = self.content.splitlines(True)
+        if len(l) > 0:
+            subject = l[0]
+        else:
+            subject = 'New Item\n'
+
+        if subject[0] == '#':
+            subject = subject.lstrip('#')
+            subject = subject.lstrip()
+
+        body = self.content
+
+        if sys.platform == 'darwin':
+            # macOS
+            subprocess.call(["open", "mailto:" + address + "?subject=" + subject + "&body=" + body])
+        else:
+            # Windows, Linux
+            os.system("start mailto:" + address + "?subject=" + subject + "&body=" + body)
 
 
     def onFocusChanged(self, oldWidget, nowWidget):
