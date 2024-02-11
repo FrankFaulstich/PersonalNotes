@@ -2,6 +2,7 @@ import json
 import sys
 import markdown
 import os
+import pyperclip
 
 from datetime import date
 
@@ -38,12 +39,14 @@ class MyWindow(QMainWindow):
         # Add icons to buttons
         self.ui.pushButton_Add.setIcon(QIcon('./icons/add.svg'))
         self.ui.pushButton_Del.setIcon(QIcon('./icons/del.svg'))
+        self.ui.pushButton_Copy.setIcon(QIcon('./icons/copy.svg'))
 
         # Slots
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
+        self.ui.pushButton_Copy.clicked.connect(self.onButtonCopy)
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -129,6 +132,7 @@ class MyWindow(QMainWindow):
         self.ui.textEdit.setHtml(contentHTML)
         self.ui.textEdit.setReadOnly(True)
 
+
     def onOpenFolder(self):
         # Menu item "Open Folder"
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
@@ -187,6 +191,10 @@ class MyWindow(QMainWindow):
         self.refreshList()
         self.setCurrentNote(0)
         self.ui.textEdit.setReadOnly(True)
+
+
+    def onButtonCopy(self):
+        pyperclip.copy(self.content)
 
 
     def onFocusChanged(self, oldWidget, nowWidget):
