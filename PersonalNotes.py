@@ -176,7 +176,8 @@ class MyWindow(QMainWindow):
         newItem ={
             "name": "New Note\n",
             "date": str(today),
-            "note": str(file) + '.md'
+            "note": str(file) + '.md',
+            "date_creation": str(today)
         }
         self.notes['item'].insert(0, newItem)
         self.saveNotes()
