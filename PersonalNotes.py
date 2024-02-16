@@ -79,6 +79,16 @@ class MyWindow(QMainWindow):
         try:
             with open(file_name, 'r') as f:
                 self.notes = json.load(f)
+
+                # No creation date in file
+                
+                for i in range(len(self.notes['item'])):
+                    item = self.notes['item'][i]
+               
+                    if not 'date_creation' in item:
+                        # Add key 'date_creation' to the dictionary
+                        self.notes['item'][i]['date_creation'] = self.notes['item'][i]['date']
+                
         except:
             # TODO: #64  Replace it with a message box
             print('Notes file not found. A new file is created.')
