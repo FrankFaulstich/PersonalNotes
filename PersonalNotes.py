@@ -268,6 +268,7 @@ class MyWindow(QMainWindow):
             newItem['name'] = name
             newItem['date'] = str(today)
             newItem['note'] = self.currentNote['note']
+            newItem['date_creation'] = self.currentNote['date_creation']
             
             del(self.notes['item'][self.currentNoteNumber])
             self.notes['item'].insert(0, newItem)
