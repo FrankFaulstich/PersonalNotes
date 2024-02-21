@@ -45,6 +45,8 @@ class MyWindow(QMainWindow):
 
         # Slots
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
+        self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
+
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
@@ -156,6 +158,34 @@ class MyWindow(QMainWindow):
         self.refreshList()
         self.setCurrentNote(0)
 
+    def onSaveAsMD(self):
+        # Menu item "Save as Markdown"
+        print('Save as Markdown')
+        # Erstellen Sie einen QFileDialog-Objekt
+        dialog = QFileDialog(self)
+        dialog.exec()
+
+        # Setzen Sie den Dialogmodus auf "Speichern unter"
+        # Crash
+        #dialog.setFileMode(QFileDialog.FileMode.Save)
+        # Liefert nur den Ordner
+        #dialog.setFileMode(QFileDialog.FileMode.AnyFile)
+        #dialog.setFileMode()#
+        #dialog.getOpenFileName(self, 'Save', '${HOME}', '*.md')
+        
+        ###
+
+        # Setzen Sie den Standardfilter
+        #dialog.setNameFilter("Markdown (*.md)")
+
+        # Öffnen Sie den Dialog
+        '''
+        if dialog.exec():
+            # Abrufen des ausgewählten Dateinamens
+            filename = dialog.selectedFiles()[0]
+            print(filename)
+            # Jetzt muss die Datei noch gespeichert werden.
+        '''
 
     def onItemClicked(self, item):
         # Number of selected line
