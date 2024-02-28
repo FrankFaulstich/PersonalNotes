@@ -45,6 +45,8 @@ class MyWindow(QMainWindow):
 
         # Slots
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
+        self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
+
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
@@ -156,6 +158,13 @@ class MyWindow(QMainWindow):
         self.refreshList()
         self.setCurrentNote(0)
 
+    def onSaveAsMD(self):
+        # Menu item "Save as Markdown"
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        file_name = directory + '/' + self.currentNote['note']
+        with open(file_name, 'w') as f:
+            f.write(self.content)
+
 
     def onItemClicked(self, item):
         # Number of selected line
@@ -249,8 +258,8 @@ class MyWindow(QMainWindow):
             self.content = self.ui.textEdit.toPlainText()
             
             # Save the file
-            fullFileName = self.config['NotesFolder'] + self.currentNote['note']
-            with open(fullFileName, 'w') as f:
+            file_name = self.config['NotesFolder'] + self.currentNote['note']
+            with open(file_name, 'w') as f:
                 f.write(self.content)
 
             # Display the content as HTML
