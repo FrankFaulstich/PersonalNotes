@@ -160,32 +160,11 @@ class MyWindow(QMainWindow):
 
     def onSaveAsMD(self):
         # Menu item "Save as Markdown"
-        print('Save as Markdown')
-        # Erstellen Sie einen QFileDialog-Objekt
-        dialog = QFileDialog(self)
-        dialog.exec()
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        file_name = directory + '/' + self.currentNote['note']
+        with open(file_name, 'w') as f:
+            f.write(self.content)
 
-        # Setzen Sie den Dialogmodus auf "Speichern unter"
-        # Crash
-        #dialog.setFileMode(QFileDialog.FileMode.Save)
-        # Liefert nur den Ordner
-        #dialog.setFileMode(QFileDialog.FileMode.AnyFile)
-        #dialog.setFileMode()#
-        #dialog.getOpenFileName(self, 'Save', '${HOME}', '*.md')
-        
-        ###
-
-        # Setzen Sie den Standardfilter
-        #dialog.setNameFilter("Markdown (*.md)")
-
-        # Öffnen Sie den Dialog
-        '''
-        if dialog.exec():
-            # Abrufen des ausgewählten Dateinamens
-            filename = dialog.selectedFiles()[0]
-            print(filename)
-            # Jetzt muss die Datei noch gespeichert werden.
-        '''
 
     def onItemClicked(self, item):
         # Number of selected line
@@ -279,8 +258,8 @@ class MyWindow(QMainWindow):
             self.content = self.ui.textEdit.toPlainText()
             
             # Save the file
-            fullFileName = self.config['NotesFolder'] + self.currentNote['note']
-            with open(fullFileName, 'w') as f:
+            file_name = self.config['NotesFolder'] + self.currentNote['note']
+            with open(file_name, 'w') as f:
                 f.write(self.content)
 
             # Display the content as HTML
