@@ -46,6 +46,7 @@ class MyWindow(QMainWindow):
         # Slots
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
         self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
+        self.ui.action_save_as_HTML.triggered.connect(self.onSaveAsHTML)
 
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
@@ -158,12 +159,38 @@ class MyWindow(QMainWindow):
         self.refreshList()
         self.setCurrentNote(0)
 
+
     def onSaveAsMD(self):
         # Menu item "Save as Markdown"
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         file_name = directory + '/' + self.currentNote['note']
         with open(file_name, 'w') as f:
             f.write(self.content)
+
+
+    def onSaveAsHTML(self):
+        # Menu item "Save as HTML"
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        file_name = directory + '/' + self.currentNote['note']
+        # Change the file extension
+        file_name = file_name.rstrip('.md') + '.html'
+        # Change the file extension
+        # convert Markdown into HTML
+        html = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>''' + self.currentNote['name'].rstrip('\n') +  '''</title>
+</head>
+<body>
+''' + markdown.markdown(self.content) + '''
+</body>
+</html>
+        '''
+        with open(file_name, 'w') as f:
+            f.write(html)
 
 
     def onItemClicked(self, item):

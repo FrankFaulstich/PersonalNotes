@@ -29,6 +29,8 @@ class Ui_MainWindow(object):
         self.action_Open_Folder.setObjectName(u"action_Open_Folder")
         self.action_save_as_MD = QAction(MainWindow)
         self.action_save_as_MD.setObjectName(u"action_save_as_MD")
+        self.action_save_as_HTML = QAction(MainWindow)
+        self.action_save_as_HTML.setObjectName(u"action_save_as_HTML")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayoutWidget = QWidget(self.centralwidget)
@@ -95,6 +97,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_File.menuAction())
         self.menu_File.addAction(self.action_Open_Folder)
         self.menu_File.addAction(self.action_save_as_MD)
+        self.menu_File.addAction(self.action_save_as_HTML)
 
         self.retranslateUi(MainWindow)
 
@@ -105,6 +108,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Personal Notes", None))
         self.action_Open_Folder.setText(QCoreApplication.translate("MainWindow", u"&Open Folder...", None))
         self.action_save_as_MD.setText(QCoreApplication.translate("MainWindow", u"Save as &Markdown...", None))
+        self.action_save_as_HTML.setText(QCoreApplication.translate("MainWindow", u"Save as &HTML...", None))
 #if QT_CONFIG(tooltip)
         self.pushButton_Add.setToolTip(QCoreApplication.translate("MainWindow", u"Add new note", None))
 #endif // QT_CONFIG(tooltip)
