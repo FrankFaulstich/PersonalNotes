@@ -30,6 +30,10 @@ class MyWindow(QMainWindow):
     content =''
 
     def __init__(self):
+        """Initializes the application.
+
+        The GUI is built and signals and slots are connected.
+        """
         super(MyWindow, self).__init__()
         self.ui = uic.loadUi("./PersonalNotes.ui", self)
         self.readConfig()
@@ -57,6 +61,10 @@ class MyWindow(QMainWindow):
     
 
     def readConfig(self):
+        """Reads the configuration.
+
+        Reads the config.json and saves the content in the sef.config dictionary.
+        """
         try:
             with open('./config.json', 'r') as f:
                 self.config = json.load(f)
@@ -73,18 +81,25 @@ class MyWindow(QMainWindow):
 
 
     def saveConfig(self):
+        """Saves the configuration
+
+        Saves the dictionary self.config in the config.json file.
+        """
         with open('./config.json', 'w') as f:
             json.dump(self.config, f)
 
 
     def openNotes(self):
+        """Opens the Notes.
+
+        Reads the notes.json file into the dictionary self.notes.
+        """
         file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
         try:
             with open(file_name, 'r') as f:
                 self.notes = json.load(f)
 
                 # No creation date in file
-                
                 for i in range(len(self.notes['item'])):
                     item = self.notes['item'][i]
                
@@ -107,12 +122,18 @@ class MyWindow(QMainWindow):
 
 
     def saveNotes(self):
+        """Saves the notes.
+
+        Saves the dictionary self.notes in the notes.json file.
+        """
         file_name = self.config['NotesFolder'] + self.config['NotesFilename']
         with open(file_name, 'w') as f:
             json.dump(self.notes, f)
 
 
     def refreshList(self):
+        """Renews the list of notes.
+        """
         itemList = []
         for i in range(len(self.notes['item'])):
             s = self.notes['item'][i]['name']
@@ -132,11 +153,25 @@ class MyWindow(QMainWindow):
 
 
     def setCurrentNote(self, itemNumber):
+        """Activates the selected note.
+
+        Reads the item specified with itemNumber from the note list and saves it in self.currentNote.
+
+        Keyword arguments:
+        itemNumber -- Number of the item that is to be set active.
+        """
         self.currentNote = self.notes['item'][itemNumber]
         self.displayContent(self.currentNote['note'])
 
 
     def displayContent(self, file):
+        """Displays the content of the Markdown file.
+
+        Reads the Markdown file into self.content and displays it in textEdit.
+
+        Keyword arguments:
+        file -- Name of the Markdown file.
+        """
         fullFileName = self.config['NotesFolder'] + file
         # TODO #65 Error handling if the Markdown file not found
         with open(fullFileName, 'r') as f:
@@ -150,6 +185,11 @@ class MyWindow(QMainWindow):
 
 
     def onOpenFolder(self):
+        """Opens a folder.
+
+        Handles the "Open Folder" menu item.
+        Opens a folder with notes. The notes in this folder are read in.
+        """
         # Menu item "Open Folder"
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         self.config['NotesFolder'] = directory + '/'
@@ -161,6 +201,11 @@ class MyWindow(QMainWindow):
 
 
     def onSaveAsMD(self):
+        """Saves the Markdown file.
+
+        Handles the "Save as Markdown" menu item.
+        Saves the Markdown file in a folder.
+        """
         # Menu item "Save as Markdown"
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         file_name = directory + '/' + self.currentNote['note']
@@ -169,6 +214,11 @@ class MyWindow(QMainWindow):
 
 
     def onSaveAsHTML(self):
+        """Saves the content as HTML
+
+        Handles the "Save as HTML" menu item.
+        Saves the content as an HTML file in a folder.
+        """
         # Menu item "Save as HTML"
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         file_name = directory + '/' + self.currentNote['note']
@@ -194,12 +244,19 @@ class MyWindow(QMainWindow):
 
 
     def onItemClicked(self, item):
+        """Handles the click on an entry in the list.
+        """
         # Number of selected line
         self.currentNoteNumber = self.ui.listWidget.currentRow()
         self.setCurrentNote(self.currentNoteNumber)
 
 
     def onButtonAdd(self):
+        """Adds a new entry.
+
+        Handles the click on the Add button.
+        Creates a new entry in the list and creates a new Markdown file.
+        """
         self.ui.listWidget.setFocus()
         # Write the MD file
         self.notes['LastNote'] = self.notes['LastNote'] +1
@@ -221,6 +278,11 @@ class MyWindow(QMainWindow):
 
 
     def onButtonDel(self):
+        """Deletes the current entry
+
+        Handles the click on the Del button.
+        Deletes the current entry from the list and removes the Markdown file.
+        """
         self.ui.listWidget.setFocus()
         # Which item is in focus?
         row = self.listWidget.currentRow()
@@ -244,10 +306,20 @@ class MyWindow(QMainWindow):
 
 
     def onButtonCopy(self):
+        """Copies the content to the clipboard.
+
+        Handles the click on the copy button.
+        """
         pyperclip.copy(self.content)
 
 
     def onButtonMail(self):
+        """Sends the content as an e-mail.
+
+        Handles the click on the mail button.
+        The system's e-mail program is opened and the content of the note is 
+        copied to a new e-mail.
+        """
         address = 'email@example.com'
         l = self.content.splitlines(True)
         if len(l) > 0:
@@ -270,6 +342,14 @@ class MyWindow(QMainWindow):
 
 
     def onFocusChanged(self, oldWidget, nowWidget):
+        """Changing the focus.
+
+        This method is executed when the focus is changed in the app.
+
+        Keyword arguments:
+        oldWidget -- Widget that was focused before the change
+        nowWidget -- Widget which is now focused
+        """
         if self.ui.textEdit is nowWidget:
             # QTextEdit is in focus
             # TODO: #32 Change the background color
