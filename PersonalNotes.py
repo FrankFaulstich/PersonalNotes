@@ -5,7 +5,7 @@ import os
 import pyperclip
 import subprocess
 
-from datetime import date
+from datetime import datetime, date
 
 from InstallPyQt6 import installPyQt6
 installPyQt6()
@@ -34,6 +34,9 @@ class MyWindow(QMainWindow):
 
         The GUI is built and signals and slots are connected.
         """
+        m = '__init__'
+        self.__log__(m)
+
         super(MyWindow, self).__init__()
         self.ui = uic.loadUi("./PersonalNotes.ui", self)
         self.readConfig()
@@ -60,11 +63,32 @@ class MyWindow(QMainWindow):
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
+    def __log__(self, message):
+        """Saves the call of the methods in a log file.
+
+        The time and method name are recorded in the log file.
+        Logging is only active if the value "Logging": "True" is set in config.json.
+        """
+        timestamp = datetime.now()
+        s = str(timestamp) + ': ' + message
+        
+        try:
+            if self.config['Logging'] == 'True':
+                with open('./logfile.log', 'a') as f:
+                    f.write(s + '\n')
+        except:
+            pass
+
+
+
     def readConfig(self):
         """Reads the configuration.
 
         Reads the config.json and saves the content in the sef.config dictionary.
         """
+        m = 'readConfig'
+        self.__log__(m)
+
         try:
             with open('./config.json', 'r') as f:
                 self.config = json.load(f)
@@ -74,7 +98,8 @@ class MyWindow(QMainWindow):
                                 "NotesFilename": "notes.json",
                                 "CommentFolder": "./Comments/",
                                 "ChecklistFolder": "./Checklists/",
-                                "PictureFolder": "./Pictures/"
+                                "PictureFolder": "./Pictures/",
+                                "Logging": "False"
             }
              
             self.saveConfig()
@@ -85,6 +110,9 @@ class MyWindow(QMainWindow):
 
         Saves the dictionary self.config in the config.json file.
         """
+        m = 'saveConfig'
+        self.__log__(m)
+
         with open('./config.json', 'w') as f:
             json.dump(self.config, f)
 
@@ -94,6 +122,9 @@ class MyWindow(QMainWindow):
 
         Reads the notes.json file into the dictionary self.notes.
         """
+        m = 'openNotes'
+        self.__log__(m)
+
         file_name = self.config['NotesFolder'] + self.config['NotesFilename'] 
         try:
             with open(file_name, 'r') as f:
@@ -126,6 +157,9 @@ class MyWindow(QMainWindow):
 
         Saves the dictionary self.notes in the notes.json file.
         """
+        m = 'saveNotes'
+        self.__log__(m)
+        
         file_name = self.config['NotesFolder'] + self.config['NotesFilename']
         with open(file_name, 'w') as f:
             json.dump(self.notes, f)
@@ -134,6 +168,9 @@ class MyWindow(QMainWindow):
     def refreshList(self):
         """Renews the list of notes.
         """
+        m = 'refreshList'
+        self.__log__(m)
+
         itemList = []
         for i in range(len(self.notes['item'])):
             s = self.notes['item'][i]['name']
@@ -160,6 +197,9 @@ class MyWindow(QMainWindow):
         Keyword arguments:
         itemNumber -- Number of the item that is to be set active.
         """
+        m = 'setCurrentNote'
+        self.__log__(m)
+
         self.currentNote = self.notes['item'][itemNumber]
         self.displayContent(self.currentNote['note'])
 
@@ -172,6 +212,9 @@ class MyWindow(QMainWindow):
         Keyword arguments:
         file -- Name of the Markdown file.
         """
+        m = 'displayContent'
+        self.__log__(m)
+
         fullFileName = self.config['NotesFolder'] + file
         # TODO #65 Error handling if the Markdown file not found
         with open(fullFileName, 'r') as f:
@@ -190,7 +233,9 @@ class MyWindow(QMainWindow):
         Handles the "Open Folder" menu item.
         Opens a folder with notes. The notes in this folder are read in.
         """
-        # Menu item "Open Folder"
+        m = 'onOpenFolder'
+        self.__log__(m)
+
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         self.config['NotesFolder'] = directory + '/'
         
@@ -206,7 +251,9 @@ class MyWindow(QMainWindow):
         Handles the "Save as Markdown" menu item.
         Saves the Markdown file in a folder.
         """
-        # Menu item "Save as Markdown"
+        m = 'onSaveAsMD'
+        self.__log__(m)
+
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         file_name = directory + '/' + self.currentNote['note']
         with open(file_name, 'w') as f:
@@ -219,7 +266,9 @@ class MyWindow(QMainWindow):
         Handles the "Save as HTML" menu item.
         Saves the content as an HTML file in a folder.
         """
-        # Menu item "Save as HTML"
+        m = 'onSaveAsHTML'
+        self.__log__(m)
+
         directory = QFileDialog.getExistingDirectory(self, "Open Folder")
         file_name = directory + '/' + self.currentNote['note']
         # Change the file extension
@@ -246,6 +295,9 @@ class MyWindow(QMainWindow):
     def onItemClicked(self, item):
         """Handles the click on an entry in the list.
         """
+        m = 'onItemClicked'
+        self.__log__(m)
+
         # Number of selected line
         self.currentNoteNumber = self.ui.listWidget.currentRow()
         self.setCurrentNote(self.currentNoteNumber)
@@ -257,6 +309,9 @@ class MyWindow(QMainWindow):
         Handles the click on the Add button.
         Creates a new entry in the list and creates a new Markdown file.
         """
+        m = 'onButtonAdd'
+        self.__log__(m)
+
         self.ui.listWidget.setFocus()
         # Write the MD file
         self.notes['LastNote'] = self.notes['LastNote'] +1
@@ -283,6 +338,9 @@ class MyWindow(QMainWindow):
         Handles the click on the Del button.
         Deletes the current entry from the list and removes the Markdown file.
         """
+        m = 'onButtonDel'
+        self.__log__(m)
+
         self.ui.listWidget.setFocus()
         # Which item is in focus?
         row = self.listWidget.currentRow()
@@ -310,6 +368,9 @@ class MyWindow(QMainWindow):
 
         Handles the click on the copy button.
         """
+        m = 'onButtonCopy'
+        self.__log__(m)
+
         pyperclip.copy(self.content)
 
 
@@ -320,6 +381,9 @@ class MyWindow(QMainWindow):
         The system's e-mail program is opened and the content of the note is 
         copied to a new e-mail.
         """
+        m = 'onButtonMail'
+        self.__log__(m)
+
         address = 'email@example.com'
         l = self.content.splitlines(True)
         if len(l) > 0:
@@ -350,6 +414,9 @@ class MyWindow(QMainWindow):
         oldWidget -- Widget that was focused before the change
         nowWidget -- Widget which is now focused
         """
+        m = 'onFocusChanged'
+        self.__log__(m)
+
         if self.ui.textEdit is nowWidget:
             # QTextEdit is in focus
             # TODO: #32 Change the background color
