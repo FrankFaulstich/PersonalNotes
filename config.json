@@ -3,5 +3,6 @@
   "NotesFilename": "notes.json",
   "CommentFolder": "./Notes/Comments/",
   "ChecklistFolder": "./Notes/Checklists/",
-  "PictureFolder": "./Notes/Pictures/"
+  "PictureFolder": "./Notes/Pictures/",
+  "Logging": "True"
 }
