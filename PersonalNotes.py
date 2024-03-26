@@ -6,6 +6,12 @@ import pyperclip
 import subprocess
 
 from datetime import datetime, date
+#Funktioniert nicht
+#from odf import Document
+###
+from odf.opendocument import OpenDocumentText
+from odf.style import Style, TextProperties
+from odf.text import H, P
 
 from InstallPyQt6 import installPyQt6
 installPyQt6()
@@ -54,6 +60,7 @@ class MyWindow(QMainWindow):
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
         self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
         self.ui.action_save_as_HTML.triggered.connect(self.onSaveAsHTML)
+        self.ui.action_save_as_ODT.triggered.connect(self.onSaveAsODT)
 
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
@@ -78,7 +85,6 @@ class MyWindow(QMainWindow):
                     f.write(s + '\n')
         except:
             pass
-
 
 
     def readConfig(self):
@@ -273,7 +279,6 @@ class MyWindow(QMainWindow):
         file_name = directory + '/' + self.currentNote['note']
         # Change the file extension
         file_name = file_name.rstrip('.md') + '.html'
-        # Change the file extension
         # convert Markdown into HTML
         html = '''
 <!DOCTYPE html>
@@ -290,6 +295,72 @@ class MyWindow(QMainWindow):
         '''
         with open(file_name, 'w') as f:
             f.write(html)
+
+
+    def onSaveAsODT(self):
+        """Saves the content as ODT
+
+        Handles the "Save as ODT" menu item.
+        Saves the content as an OpenDocument file in a folder.
+        """
+        m = 'onSaveAsODT'
+        self.__log__(m)
+
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        file_name = directory + '/' + self.currentNote['note']
+
+        # Change the file extension
+        file_name = file_name.rstrip('.md') + '.odt'
+
+        # Create an instance of OpenDocumentText
+        textDoc = OpenDocumentText()
+
+        # Styles
+        myStyle = textDoc.styles
+
+        h1Style = Style(name="Heading 1", family="paragraph")
+        h1Style.addElement(TextProperties(attributes={'fontsize':"24pt",'fontweight':"bold" }))
+        myStyle.addElement(h1Style)
+
+        h2Style = Style(name="Heading 2", family="paragraph")
+        h2Style.addElement(TextProperties(attributes={'fontsize':"20pt",'fontweight':"bold" }))
+        myStyle.addElement(h2Style)
+
+        h3Style = Style(name="Heading 3", family="paragraph")
+        h3Style.addElement(TextProperties(attributes={'fontsize':"16pt",'fontweight':"bold" }))
+        myStyle.addElement(h3Style)
+
+        # TODO #89 Implement a style for lists in ODT
+
+        # Convert text into a list
+        textList = self.content.split('\n')
+        
+        for line in textList:
+            # TODO #90 Don't write blank line into ODT
+            if line[:3] == '###':
+                # Heading 3
+                line = line.lstrip('#')
+                line = line.lstrip()
+                h = H(outlinelevel=3, stylename=h3Style, text=str(line))
+                textDoc.text.addElement(h)
+            elif line[:2] == '##':
+                # Heading 2
+                line = line.lstrip('#')
+                line = line.lstrip()
+                h = H(outlinelevel=2, stylename=h2Style, text=str(line))
+                textDoc.text.addElement(h)
+            elif line[:1] =='#':
+                # Heading 1
+                line = line.lstrip('#')
+                line = line.lstrip()
+                h = H(outlinelevel=1, stylename=h1Style, text=str(line))
+                textDoc.text.addElement(h)
+            else:
+                # Paragraf
+                p = P(text=str(line))
+                textDoc.text.addElement(p)
+            
+        textDoc.save(file_name)
 
 
     def onItemClicked(self, item):
