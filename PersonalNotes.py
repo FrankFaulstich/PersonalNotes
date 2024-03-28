@@ -6,9 +6,7 @@ import pyperclip
 import subprocess
 
 from datetime import datetime, date
-#Funktioniert nicht
-#from odf import Document
-###
+
 from odf.opendocument import OpenDocumentText
 from odf.style import Style, TextProperties
 from odf.text import H, P
@@ -19,6 +17,8 @@ installPyQt6()
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
+
+from dialogs.about import About
 
 class MyWindow(QMainWindow):
     # Global configuration
