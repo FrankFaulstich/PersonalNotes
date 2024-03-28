@@ -153,7 +153,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>37</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -165,78 +165,14 @@
     <addaction name="action_save_as_HTML"/>
     <addaction name="action_save_as_ODT"/>
    </widget>
-   <widget class="QMenu" name="menuInfo">
+   <widget class="QMenu" name="menuInfo_4">
     <property name="title">
      <string>Info</string>
     </property>
-    <addaction name="actionAbout_4"/>
-   </widget>
-   <widget class="QMenu" name="menuMore">
-    <property name="title">
-     <string>More</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuInfo_2">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="tearOffEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>Info</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuInfo_3">
-    <property name="title">
-     <string>Info</string>
-    </property>
-    <addaction name="actionAbout_5"/>
-   </widget>
-   <widget class="QMenu" name="menuInfo_Test">
-    <property name="title">
-     <string>Info-Test</string>
-    </property>
-    <addaction name="actionAbout_6"/>
-   </widget>
-   <widget class="QMenu" name="menuTest">
-    <property name="title">
-     <string>Test</string>
-    </property>
-    <addaction name="actionAbout_7"/>
-   </widget>
-   <widget class="QMenu" name="menuTest_2">
-    <property name="title">
-     <string>Test 2</string>
-    </property>
-    <addaction name="actionAbout_8"/>
-   </widget>
-   <widget class="QMenu" name="menuTest_3">
-    <property name="title">
-     <string>Test 3</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuTest_4">
-    <property name="title">
-     <string>Test 4</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuTest_5">
-    <property name="title">
-     <string>Test 5</string>
-    </property>
+    <addaction name="actionAbout_9"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="menuInfo"/>
-   <addaction name="menuMore"/>
-   <addaction name="menuInfo_2"/>
-   <addaction name="menuInfo_3"/>
-   <addaction name="menuInfo_Test"/>
-   <addaction name="menuTest"/>
-   <addaction name="menuTest_2"/>
-   <addaction name="menuTest_3"/>
-   <addaction name="menuTest_4"/>
-   <addaction name="menuTest_5"/>
+   <addaction name="menuInfo_4"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_Open_Folder">
@@ -302,6 +238,11 @@
   <action name="actionAbout_8">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionAbout_9">
+   <property name="text">
+    <string>About...</string>
    </property>
   </action>
  </widget>
