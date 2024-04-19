@@ -6,9 +6,7 @@ import pyperclip
 import subprocess
 
 from datetime import datetime, date
-#Funktioniert nicht
-#from odf import Document
-###
+
 from odf.opendocument import OpenDocumentText
 from odf.style import Style, TextProperties
 from odf.text import H, P
@@ -20,7 +18,10 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
 
+from dialogs.about import About
+
 class MyWindow(QMainWindow):
+    version = '1.9'
     # Global configuration
     config = {}
 
@@ -61,6 +62,7 @@ class MyWindow(QMainWindow):
         self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
         self.ui.action_save_as_HTML.triggered.connect(self.onSaveAsHTML)
         self.ui.action_save_as_ODT.triggered.connect(self.onSaveAsODT)
+        self.ui.action_About.triggered.connect(self.onAbout)
 
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
@@ -361,6 +363,10 @@ class MyWindow(QMainWindow):
                 textDoc.text.addElement(p)
             
         textDoc.save(file_name)
+
+
+    def onAbout(self):
+        About(self.version)
 
 
     def onItemClicked(self, item):
