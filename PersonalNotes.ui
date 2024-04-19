@@ -17,8 +17,8 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>-1</y>
+      <x>10</x>
+      <y>0</y>
       <width>170</width>
       <height>41</height>
      </rect>
@@ -102,7 +102,7 @@
       <x>620</x>
       <y>0</y>
       <width>170</width>
-      <height>44</height>
+      <height>41</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -153,8 +153,11 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>37</height>
     </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menu_File">
     <property name="title">
@@ -165,14 +168,14 @@
     <addaction name="action_save_as_HTML"/>
     <addaction name="action_save_as_ODT"/>
    </widget>
-   <widget class="QMenu" name="menuInfo_4">
+   <widget class="QMenu" name="menu_Info">
     <property name="title">
      <string>Info</string>
     </property>
-    <addaction name="actionAbout_9"/>
+    <addaction name="action_About"/>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="menuInfo_4"/>
+   <addaction name="menu_Info"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_Open_Folder">
@@ -195,52 +198,7 @@
     <string>Save as &amp;ODT...</string>
    </property>
   </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About...</string>
-   </property>
-  </action>
-  <action name="actionAbout_2">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionTest_2">
-   <property name="text">
-    <string>Über</string>
-   </property>
-  </action>
-  <action name="actionAbout_3">
-   <property name="text">
-    <string>About...</string>
-   </property>
-  </action>
-  <action name="actionAbout_4">
-   <property name="text">
-    <string>About...</string>
-   </property>
-  </action>
-  <action name="actionAbout_5">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionAbout_6">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionAbout_7">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionAbout_8">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionAbout_9">
+  <action name="action_About">
    <property name="text">
     <string>About...</string>
    </property>
