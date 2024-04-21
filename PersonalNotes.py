@@ -64,19 +64,22 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_Copy.setIcon(QIcon('./icons/copy.svg'))
         self.ui.pushButton_Mail.setIcon(QIcon('./icons/mail.svg'))
 
-        # Slots
+        # Slots for menu items
         self.ui.action_Open_Folder.triggered.connect(self.onOpenFolder)
         self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
         self.ui.action_save_as_HTML.triggered.connect(self.onSaveAsHTML)
         self.ui.action_save_as_ODT.triggered.connect(self.onSaveAsODT)
         self.ui.action_save_as_DOCX.triggered.connect(self.onSaveAsDOCX)
+        self.ui.action_Exit.triggered.connect(self.onExit)
         self.ui.action_About.triggered.connect(self.onAbout)
 
+        #Slots for buttons
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
         self.ui.pushButton_Add.clicked.connect(self.onButtonAdd)
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
         self.ui.pushButton_Copy.clicked.connect(self.onButtonCopy)
         self.ui.pushButton_Mail.clicked.connect(self.onButtonMail)
+
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -420,6 +423,17 @@ class MyWindow(QMainWindow):
                 document.add_paragraph(line)
 
         document.save(file_name)
+
+
+    def onExit(self):
+        """Close the Aplication
+
+        Handles the "Exit" menu item.
+        """
+        m = 'onExit'
+        self.__log__(m)
+        
+        sys.exit(0)
 
 
     def onAbout(self):
