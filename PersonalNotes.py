@@ -1,19 +1,26 @@
 import json
 import sys
+# Markdown
 import markdown
 import os
+# pyperclip
 import pyperclip
 import subprocess
 
 from datetime import datetime, date
 
+# odfpy
 from odf.opendocument import OpenDocumentText
 from odf.style import Style, TextProperties
 from odf.text import H, P
 
+# python-docx 
+from docx import Document
+
 from InstallPyQt6 import installPyQt6
 installPyQt6()
 
+# PyQt6
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
@@ -62,6 +69,7 @@ class MyWindow(QMainWindow):
         self.ui.action_save_as_MD.triggered.connect(self.onSaveAsMD)
         self.ui.action_save_as_HTML.triggered.connect(self.onSaveAsHTML)
         self.ui.action_save_as_ODT.triggered.connect(self.onSaveAsODT)
+        self.ui.action_save_as_DOCX.triggered.connect(self.onSaveAsDOCX)
         self.ui.action_About.triggered.connect(self.onAbout)
 
         self.ui.listWidget.itemClicked.connect(self.onItemClicked)
@@ -363,6 +371,51 @@ class MyWindow(QMainWindow):
                 textDoc.text.addElement(p)
             
         textDoc.save(file_name)
+
+
+    def onSaveAsDOCX(self):
+        """Saves the content as DOCX
+
+        Handles the "Save as DOCX" menu item.
+        Saves the content as an Microsoft Word file in a folder.
+        """
+        m = 'onSaveAsDOCX'
+        self.__log__(m)
+
+        directory = QFileDialog.getExistingDirectory(self, "Open Folder")
+        file_name = directory + '/' + self.currentNote['note']
+
+        # Change the file extension
+        file_name = file_name.rstrip('.md') + '.docx'
+
+        # Create an instance of Document
+        document = Document()
+
+        # Convert text into a list
+        textList = self.content.split('\n')
+
+        for line in textList:
+            # TODO #99 Don't write blank lines into DOCX
+            if line[:3] == '###':
+                # Heading 3
+                line = line.lstrip('#')
+                line = line.lstrip()
+                document.add_heading(line, level=3)
+            elif line[:2] == '##':
+                # Heading 2
+                line = line.lstrip('#')
+                line = line.lstrip()
+                document.add_heading(line, level=2)
+            elif line[:1] =='#':
+                # Heading 1
+                line = line.lstrip('#')
+                line = line.lstrip()
+                document.add_heading(line, level=1)
+            else:
+                # Paragraf
+                document.add_paragraph(line)
+
+        document.save(file_name)
 
 
     def onAbout(self):
