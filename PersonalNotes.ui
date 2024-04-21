@@ -168,6 +168,7 @@
     <addaction name="action_save_as_HTML"/>
     <addaction name="action_save_as_ODT"/>
     <addaction name="action_save_as_DOCX"/>
+    <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menu_Info">
     <property name="title">
@@ -202,6 +203,11 @@
   <action name="action_save_as_DOCX">
    <property name="text">
     <string>Save as &amp;DOCX...</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
    </property>
   </action>
   <action name="action_About">
