@@ -426,7 +426,7 @@ class MyWindow(QMainWindow):
 
 
     def onExit(self):
-        """Close the Aplication
+        """Close the Application
 
         Handles the "Exit" menu item.
         """
