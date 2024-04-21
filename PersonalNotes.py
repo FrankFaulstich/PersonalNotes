@@ -346,8 +346,10 @@ class MyWindow(QMainWindow):
         textList = self.content.split('\n')
         
         for line in textList:
-            # TODO #90 Don't write blank line into ODT
-            if line[:3] == '###':
+            if line == '':
+                # Don't write blank lines into ODT
+                pass
+            elif line[:3] == '###':
                 # Heading 3
                 line = line.lstrip('#')
                 line = line.lstrip()
