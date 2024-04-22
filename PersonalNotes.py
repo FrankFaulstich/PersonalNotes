@@ -26,6 +26,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
 
 from dialogs.about import About
+from dialogs.warning import Warning
 
 class MyWindow(QMainWindow):
     version = '1.9'
