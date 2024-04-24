@@ -27,6 +27,7 @@ from PyQt6.QtGui import QIcon
 
 from dialogs.about import About
 from dialogs.warning import Warning
+from dialogs.error import Error
 
 class MyWindow(QMainWindow):
     version = '1.9'
