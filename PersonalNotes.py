@@ -26,8 +26,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QIcon
 
 from dialogs.about import About
-from dialogs.warning import Warning
-from dialogs.error import Error
+from dialogs.messagebox import Messagebox
 
 class MyWindow(QMainWindow):
     version = '1.9'
@@ -81,6 +80,14 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_Del.clicked.connect(self.onButtonDel)
         self.ui.pushButton_Copy.clicked.connect(self.onButtonCopy)
         self.ui.pushButton_Mail.clicked.connect(self.onButtonMail)
+
+        # Test
+        Messagebox.error('Errortext')
+
+        Messagebox.warning('Warningtext')
+
+        r = Messagebox.decision('Decision')
+        print(r)
 
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
