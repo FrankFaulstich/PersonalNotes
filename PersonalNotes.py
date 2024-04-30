@@ -81,14 +81,6 @@ class MyWindow(QMainWindow):
         self.ui.pushButton_Copy.clicked.connect(self.onButtonCopy)
         self.ui.pushButton_Mail.clicked.connect(self.onButtonMail)
 
-        # Test
-        Messagebox.error('Errortext')
-
-        Messagebox.warning('Warningtext')
-
-        r = Messagebox.decision('Decision')
-        print(r)
-
         QApplication.instance().focusChanged.connect(self.onFocusChanged)
     
 
@@ -165,6 +157,10 @@ class MyWindow(QMainWindow):
                     if not 'date_creation' in item:
                         # Add key 'date_creation' to the dictionary
                         self.notes['item'][i]['date_creation'] = self.notes['item'][i]['date']
+
+                    if not 'tags' in item:
+                        # Add empty key 'tags' to the dictionary
+                        self.notes['item'][i]['tags'] = ''
                 
         except:
             # TODO: #64  Replace it with a message box
