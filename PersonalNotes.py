@@ -163,8 +163,7 @@ class MyWindow(QMainWindow):
                         self.notes['item'][i]['tags'] = ''
                 
         except:
-            # TODO: #64  Replace it with a message box
-            print('Notes file not found. A new file is created.')
+            Messagebox.info('Notes file not found. A new file is created.')
             self.notes = {
                             "LastNoteID": 1,
                             "LastNote": 1,
