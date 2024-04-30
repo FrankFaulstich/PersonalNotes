@@ -5,6 +5,15 @@ class Messagebox:
     def __init__(self):
         pass
 
+    def info(text):
+        s = '<p>Information</p>'
+        s = s + '<p>' + text + '</p> '
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle('Information')
+        msgBox.setIcon(msgBox.Icon.Information)
+        msgBox.setText(s)
+        msgBox.exec()
+
 
     def warning(text):
         s = '<p>Warning</p>'
@@ -15,6 +24,7 @@ class Messagebox:
         msgBox.setText(s)
         msgBox.exec()
 
+
     def error(text):
         s = '<p>Error</p>'
         s = s + '<p>' + text + '</p> '
@@ -23,6 +33,7 @@ class Messagebox:
         msgBox.setIcon(msgBox.Icon.Critical)
         msgBox.setText(s)
         msgBox.exec()
+
 
     def decision(text):
         s = '<p>Decision</p>'
