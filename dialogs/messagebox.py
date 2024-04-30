@@ -52,13 +52,10 @@ class Messagebox:
         response = msgBox.exec()
 
         if response == msgBox.StandardButton.Yes:
-            print('Yes')
             r = 1
         elif response == msgBox.StandardButton.No:
-            print('No')
             r = 2
         else:
-            print('Cancel')
             r = 0
         
         return r

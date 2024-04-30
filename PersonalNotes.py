@@ -503,8 +503,7 @@ class MyWindow(QMainWindow):
         if os.path.exists(fullFileName):
             os.remove(fullFileName)
         else:
-            # TODO: #41 Replace it with a message box
-            print("The file does not exist.")
+            Messagebox.error('The file does not exist.')
         
         # Delete the item in list
         self.notes['item'].remove(self.notes['item'][row])
